@@ -1,0 +1,30 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('dependencies') {
+      steps {
+        sh 'sh dependencies.sh'
+      }
+    }
+
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        // Adjust the deployment command based on your web server setup
+        sh 'cp -r build/* /var/www/html/'
+      }
+    }
+  }
+}
